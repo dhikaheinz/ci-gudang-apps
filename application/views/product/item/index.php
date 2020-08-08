@@ -31,7 +31,6 @@
               <section class="col-lg connectedSortable">
                   <!-- Custom tabs (Charts with tabs)-->
                   <div class="card">
-
                       <div class="card-header">
                           <h3 class="card-title">
                               <i class="fas fa-chart-pie mr-1"></i>
@@ -40,7 +39,18 @@
                           <div class="card-tools">
                               <ul class="nav nav-pills ml-auto">
                                   <li class="nav-item">
-                                      <a href="" class="btn btn-primary mr-5" data-toggle="modal" data-target="#newItemModal">Tambah Item</a>
+                                      <a href="" class="btn btn-primary mr-1" data-toggle="modal" data-target="#newItemModal">Input New Item</a>
+                                  </li>
+                                  <li>
+                                      <div class="dropdown inline">
+                                          <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Export
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="<?= base_url('Item/pdf'); ?>">PDF</a>
+                                              <a class="dropdown-item" href="<?= base_url('Item/excel'); ?>">EXEL</a>
+                                          </div>
+                                      </div>
                                   </li>
                               </ul>
                           </div>
@@ -55,9 +65,9 @@
                                       <tr>
                                           <th scope="col">#</th>
                                           <th scope="col">Barcode</th>
-                                          <th scope="col">Name</th>
+                                          <th scope="col">Product Name</th>
                                           <th scope="col">Category</th>
-                                          <th scope="col">Price</th>
+                                          <th scope="col">Harga</th>
                                           <th scope="col">Stock</th>
                                           <th scope="col">Aksi</th>
                                       </tr>

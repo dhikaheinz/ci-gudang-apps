@@ -39,9 +39,21 @@
                           <div class="card-tools">
                               <ul class="nav nav-pills ml-auto">
                                   <li class="nav-item">
-                                      <a href="" class="btn btn-primary mr-5" data-toggle="modal" data-target="#newStockModal">Tambah Stock</a>
+                                      <a href="" class="btn btn-primary mr-1" data-toggle="modal" data-target="#newStockModal">Input Stock Masuk</a>
+                                  </li>
+                                  <li>
+                                      <div class="dropdown inline">
+                                          <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Export
+                                          </button>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="<?= base_url('Stock/pdf'); ?>">PDF</a>
+                                              <a class="dropdown-item" href="<?= base_url('Stock/excel'); ?>">EXEL</a>
+                                          </div>
+                                      </div>
                                   </li>
                               </ul>
+
                           </div>
                       </div>
                       <!-- /.card-header -->

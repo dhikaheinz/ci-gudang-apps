@@ -64,4 +64,93 @@ class Item extends CI_Controller
             item berhasil diHapus</div>');
         redirect('item/index');
     }
+
+    public function excel()
+    {
+        $data['row']  = $this->item_m->get()->result();
+        $data['category'] = $this->category_m->get()->result();
+
+        require(APPPATH . 'PHPExcel-1.8/Classes/PHPExcel.php');
+        require(APPPATH . 'PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php');
+
+        $object = new PHPExcel();
+        $object->getProperties()->setCreator("AMProduction");
+        $object->getProperties()->setLastModifiedBy("AMProduction");
+        $object->getProperties()->setTitle("Data Item");
+
+        $object->setActiveSheetIndex(0);
+
+        $object->getActiveSheet()->setCellValue('A1', 'No');
+        $object->getActiveSheet()->setCellValue('B1', 'Barcode');
+        $object->getActiveSheet()->setCellValue('C1', 'Product Name');
+        $object->getActiveSheet()->setCellValue('D1', 'Category');
+        $object->getActiveSheet()->setCellValue('E1', 'Harga');
+        $object->getActiveSheet()->setCellValue('F1', 'Stock');
+
+        $baris = 2;
+        $no = 1;
+
+        foreach ($data['row'] as $oItem) {
+            $object->getActiveSheet()->setCellValue('A' . $baris, $no++);
+            $object->getActiveSheet()->setCellValue('B' . $baris, $oItem->barcode);
+            $object->getActiveSheet()->setCellValue('C' . $baris, $oItem->name);
+            $object->getActiveSheet()->setCellValue('D' . $baris, $oItem->category_name);
+            $object->getActiveSheet()->setCellValue('E' . $baris, $oItem->price);
+            $object->getActiveSheet()->setCellValue('F' . $baris, $oItem->stock);
+
+            $baris++;
+        }
+
+        $filename = "Data_Item" . '.xlsx';
+
+        $object->getActiveSheet()->setTitle("Data Item");
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Context-Disposition: attachment; filename"' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer = PHPExcel_IOFactory::createwriter($object, 'Excel2007');
+        $writer->save('php://output');
+
+        exit;
+    }
+
+    public function pdf()
+    {
+        $pdf = new \TCPDF();
+        $pdf->AddPage('L', 'mm', 'A4');
+        $pdf->SetFont('', 'B', 14);
+        $pdf->Cell(277, 10, "LAPORAN DAFTAR ITEM", 0, 1, 'C');
+        $pdf->SetAutoPageBreak(true, 0);
+
+        // Add Header
+        $pdf->Ln(10);
+        $pdf->SetFont('', 'B', 12);
+        $pdf->Cell(20, 8, "No", 1, 0, 'C');
+        $pdf->Cell(20, 8, "Barcode", 1, 0, 'C');
+        $pdf->Cell(70, 8, "Product Name", 1, 0, 'C');
+        $pdf->Cell(70, 8, "Category", 1, 0, 'C');
+        $pdf->Cell(40, 8, "Harga", 1, 0, 'C');
+        $pdf->Cell(37, 8, "Stock", 1, 1, 'C');
+
+
+
+        $pdf->SetFont('', '', 12);
+        $data['row']  = $this->item_m->get()->result();
+        $data['category'] = $this->category_m->get()->result();
+        $no = 0;
+        foreach ($data['row'] as $lapItem) {
+            $no++;
+            $pdf->Cell(20, 8, $no, 1, 0, 'C');
+            $pdf->Cell(20, 8, $lapItem->barcode, 1, 0);
+            $pdf->Cell(70, 8, $lapItem->name, 1, 0);
+            $pdf->Cell(70, 8, $lapItem->category_name, 1, 0);
+            $pdf->Cell(40, 8, $lapItem->price, 1, 0);
+            $pdf->Cell(37, 8, $lapItem->stock, 1, 1);
+        }
+
+        $pdf->SetFont('', 'B', 10);
+        $pdf->Cell(277, 10, "Laporan Daftar Item Masuk CV. AMProduction", 0, 1, 'L');
+
+        $pdf->Output('Laporan-Stok-Masuk.pdf');
+    }
 }
