@@ -67,6 +67,8 @@
                                           <th scope="col">Barcode</th>
                                           <th scope="col">Product Name</th>
                                           <th scope="col">Category</th>
+                                          <th scope="col">Color</th>
+                                          <th scope="col">Size</th>
                                           <th scope="col">Harga</th>
                                           <th scope="col">Stock</th>
                                           <th scope="col">Aksi</th>
@@ -80,6 +82,8 @@
                                               <td><?= $i->barcode ?></td>
                                               <td><?= $i->name ?></td>
                                               <td><?= $i->category_name ?></td>
+                                              <td><?= $i->color_name ?></td>
+                                              <td><?= $i->size ?></td>
                                               <td><?= $i->price ?></td>
                                               <td><?= $i->stock ?></td>
                                               <td>
@@ -129,6 +133,28 @@
                               <?php foreach ($category->result() as $c) : ?>
                                   <option value="<?= $c->id_category ?>"><?= $c->name ?></option>
                               <?php endforeach; ?>
+                          </select>
+                      </div>
+
+                      <div class="form-group">
+                          <select name="color" class="form-control">
+                              <option value="">Select Color</option>
+                              <?php foreach ($color->result() as $z) : ?>
+                                  <option value="<?= $z->id_color ?>"><?= $z->color ?></option>
+                              <?php endforeach; ?>
+                          </select>
+                      </div>
+
+                      <div class="form-group">
+                          <select name="size" class="form-control">
+                              <option value="">Select Size</option>
+                              <option value="XS">XS</option>
+                              <option value="S">S</option>
+                              <option value="M">M</option>
+                              <option value="L">L</option>
+                              <option value="XL">XL</option>
+                              <option value="XXL">XXL</option>
+                              <option value="XXXL">XXXL</option>
                           </select>
                       </div>
 

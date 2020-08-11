@@ -5,9 +5,10 @@ class item_m extends CI_Model
 {
     public function get($id = null)
     {
-        $this->db->select('p_item.*, p_category.name as category_name');
+        $this->db->select('p_item.*, p_category.name as category_name, p_color.color as color_name');
         $this->db->from('p_item');
         $this->db->join('p_category', 'p_category.id_category = p_item.category');
+        $this->db->join('p_color', 'p_color.id_color = p_item.color');
         if ($id != null) {
             $this->db->where('id_item', $id);
         }
@@ -24,6 +25,8 @@ class item_m extends CI_Model
             'barcode' => $this->input->post('barcode', true),
             'name' => $this->input->post('name', true),
             'category' => $this->input->post('category', true),
+            'color' => $this->input->post('color', true),
+            'size' => $this->input->post('size', true),
             'price' => $this->input->post('price', true),
             'updated' => date('Y-m-d H:i:s')
         ];

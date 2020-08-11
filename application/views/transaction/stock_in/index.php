@@ -172,7 +172,7 @@
                   </button>
               </div>
               <div class="modal-body table-resonsive">
-                  <table class="table table-hover table-bordered table-striped">
+                  <table class="table table-hover table-bordered table-striped table2">
                       <thead>
                           <tr>
                               <th scope="col">Barcode</th>

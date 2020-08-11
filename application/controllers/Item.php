@@ -6,7 +6,7 @@ class Item extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model(['item_m', 'category_m']);
+        $this->load->model(['item_m', 'category_m', 'color_m']);
     }
 
 
@@ -15,6 +15,7 @@ class Item extends CI_Controller
         $data['title'] = 'item';
         $data['row']  = $this->item_m->get();
         $data['category'] = $this->category_m->get();
+        $data['color'] = $this->color_m->get();
 
 
         $this->template->load('templates/index', 'product/item/index', $data);
@@ -22,13 +23,14 @@ class Item extends CI_Controller
 
     public function tambah()
     {
-
         $this->db->insert(
             'p_item',
             [
                 'barcode' => $this->input->post('barcode'),
                 'name' => $this->input->post('name'),
                 'category' => $this->input->post('category'),
+                'color' => $this->input->post('color'),
+                'size' => $this->input->post('size'),
                 'price' => $this->input->post('price')
             ]
         );
@@ -42,6 +44,7 @@ class Item extends CI_Controller
         $query = $this->item_m->get($id);
         $data['edit_item'] = $query->row();
         $data['query_category'] = $this->category_m->get();
+        $data['query_color'] = $this->color_m->get();
 
         $this->form_validation->set_rules('name', 'Name', 'required');
 

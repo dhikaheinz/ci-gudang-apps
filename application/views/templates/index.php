@@ -92,7 +92,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li <?= $this->uri->segment(1) == 'category' || $this->uri->segment(1) == 'item' ? 'class="nav-item has-treeview active menu-open"' : '' ?> class="nav-item has-treeview active">
+                        <li <?= $this->uri->segment(1) == 'category' || $this->uri->segment(1) == 'item' || $this->uri->segment(1) == 'color' ? 'class="nav-item has-treeview active menu-open"' : '' ?> class="nav-item has-treeview active">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-store"></i>
                                 <p>
@@ -102,15 +102,21 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a <?= $this->uri->segment(1) == 'item' ? 'class="nav-link active"' : '' ?>href="<?= base_url('item') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Product Item</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a <?= $this->uri->segment(1) == 'category' ? 'class="nav-link active"' : '' ?>href="<?= base_url('category') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Category</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a <?= $this->uri->segment(1) == 'item' ? 'class="nav-link active"' : '' ?>href="<?= base_url('item') ?>" class="nav-link">
+                                    <a <?= $this->uri->segment(1) == 'color' ? 'class="nav-link active"' : '' ?>href="<?= base_url('color') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Item</p>
+                                        <p>Color</p>
                                     </a>
                                 </li>
                             </ul>

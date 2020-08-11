@@ -73,6 +73,31 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Color</label>
+                                    <select name="color" id="color" class="form-control">
+                                        <option value="">Select Color</option>
+                                        <?php foreach ($query_color->result() as $z) : ?>
+                                            <option value="<?= $z->id_color ?>" <?= $z->id_color == $edit_item->color ? "selected" : null ?>><?= $z->color ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Size</label>
+                                    <select name="size" id="size" class="form-control">
+                                        <option value="">Select Size</option>
+
+                                        <option value="<?= $edit_item->size ?>" <?= $edit_item->size == $edit_item->size ? "selected" : null ?>><?= $edit_item->size ?></option>
+                                        <option value="XS" <?= $edit_item->size != 'XS' ? null : "hidden" ?>>XS</option>
+                                        <option value="S" <?= $edit_item->size != 'S' ? null : "hidden" ?>>S</option>
+                                        <option value="M" <?= $edit_item->size != 'M' ? null : "hidden" ?>>M</option>
+                                        <option value="L" <?= $edit_item->size != 'L' ? null : "hidden" ?>>L</option>
+                                        <option value="XL" <?= $edit_item->size != 'XL' ? null : "hidden" ?>>XL</option>
+                                        <option value="XXL" <?= $edit_item->size != 'XXL' ? null : "hidden" ?>>XXL</option>
+                                        <option value="XXXL" <?= $edit_item->size != 'XXXL' ? null : "hidden" ?>>XXXL</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Price</label>
                                     <input type="text" class="form-control" id="price" value="<?= $edit_item->price ?>" name="price" required>
                                 </div>
