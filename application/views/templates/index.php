@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>AM Production | Dashboard</title>
+    <title>AM Production</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Font Awesome -->
@@ -56,7 +56,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <span class="brand-text font-weight-light ml-3"><b>AM Production</b></span>
+                <span class="brand-text font-weight-light ml-3"><b>BANDAR OBLONG</b></span>
             </a>
 
             <!-- Sidebar -->
@@ -64,10 +64,10 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="<?= base_url('assets/') ?>" class="img-circle elevation-2" alt="User Image" />
+                        <img src="<?= base_url('assets/dist/img/avatar04.png') ?>" class="img-circle elevation-2" alt="User Image" />
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Admin</a>
+                        <a href="#" class="d-block"><?= $this->session->userdata('nama') ?></a>
                     </div>
                 </div>
 
@@ -242,6 +242,11 @@
     <script>
         $(document).ready(function() {
             $('#table1').dataTable()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.table2').dataTable()
         })
     </script>
 </body>

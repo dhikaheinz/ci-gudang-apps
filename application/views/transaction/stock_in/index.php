@@ -84,7 +84,7 @@
                                               <td><?= $i->detail ?></td>
                                               <td class="text-center"><?= indo_date($i->date) ?></td>
                                               <td>
-                                                  <a href="" class="badge badge-info">Detail</a>
+
                                                   <a href="<?= base_url('stock/hapusIn/' . $i->id_stock . '/' . $i->id_item) ?>" onclick="return confirm('Hapus Stock In?');" class="badge badge-danger">hapus</a>
                                               </td>
                                           </tr>

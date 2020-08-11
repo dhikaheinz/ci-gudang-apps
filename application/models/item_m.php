@@ -47,4 +47,24 @@ class item_m extends CI_Model
         $sql = "UPDATE p_item SET stock = stock - '$qty' WHERE id_item ='$id'";
         $this->db->query($sql);
     }
+
+    function jmlData()
+    {
+        $query = $this->db->query("SELECT * FROM p_item");
+        $total = $query->num_rows();
+        return $total;
+    }
+
+    public function getDashboard($id = null)
+    {
+        $this->db->select('p_item.*, p_category.name as category_name');
+        $this->db->from('p_item');
+        $this->db->join('p_category', 'p_category.id_category = p_item.category');
+        if ($id != null) {
+            $this->db->where('id_item', $id);
+        }
+        $this->db->limit(2);
+        $query = $this->db->get();
+        return $query;
+    }
 }

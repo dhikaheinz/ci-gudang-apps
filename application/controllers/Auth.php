@@ -5,6 +5,8 @@ class Auth extends CI_Controller
 {
     public function index()
     {
+        if ($this->session->userdata('authenticated')) // Jika user sudah login (Session authenticated ditemukan)
+            redirect('dashboard');
         $this->load->view('auth/login');
     }
     function proses()
@@ -18,7 +20,9 @@ class Auth extends CI_Controller
             if ($query->num_rows() > 0) {
                 $row = $query->row();
                 $params = [
+                    'authenticated' => true,
                     'id'  => $row->id,
+                    'nama' => $row->nama,
                     'level' => $row->level
                 ];
                 $this->session->set_userdata($params);
@@ -35,8 +39,7 @@ class Auth extends CI_Controller
     }
     function logout()
     {
-        $params = ['id', 'level'];
-        $this->session->unset_userdata($params);
+        $this->session->sess_destroy();
         redirect('Auth');
     }
 }

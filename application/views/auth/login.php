@@ -23,7 +23,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href=""><b>AM</b>PRODUCTION</a>
+            <a href=""><b>BANDAR</b> OBLONG</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">

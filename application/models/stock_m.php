@@ -63,4 +63,18 @@ class stock_m extends CI_Model
         $this->db->where('id_stock', $id);
         $this->db->delete('t_stock');
     }
+
+    function jmlDataIN()
+    {
+        $this->db->like('type', 'in');
+        $this->db->from('t_stock');
+        return $this->db->count_all_results();
+    }
+
+    function jmlDataOUT()
+    {
+        $this->db->like('type', 'out');
+        $this->db->from('t_stock');
+        return $this->db->count_all_results();
+    }
 }

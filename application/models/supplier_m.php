@@ -37,4 +37,22 @@ class supplier_m extends CI_Model
         $this->db->where('id_supplier', $id);
         $this->db->delete('supplier');
     }
+
+    function jmlData()
+    {
+        $query = $this->db->query("SELECT * FROM supplier");
+        $total = $query->num_rows();
+        return $total;
+    }
+
+    public function getDashboard($id = null)
+    {
+        $this->db->from('supplier');
+        if ($id != null) {
+            $this->db->where('id_supplier', $id);
+        }
+        $this->db->limit(4);
+        $query = $this->db->get();
+        return $query;
+    }
 }
