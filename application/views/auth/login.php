@@ -23,7 +23,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href=""><b>BANDAR</b> OBLONG</a>
+            <img src="<?= base_url('assets/dist/img/logo-bandaroblong.png') ?>" class="rounded" alt="User Image" width="300px" height="150px" />
         </div>
         <!-- /.login-logo -->
         <div class="card">

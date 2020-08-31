@@ -19,6 +19,17 @@ class item_m extends CI_Model
     {
         return $this->db->get_where('p_item', ['id_item' => $id])->row_array();
     }
+
+    public function getIdDel($id = null)
+    {
+        $this->db->from('p_item');
+        if ($id != null) {
+            $this->db->where('id_item', $id);
+        }
+        $query = $this->db->get();
+        return $query;
+    }
+
     function editItem($id)
     {
         $data = [

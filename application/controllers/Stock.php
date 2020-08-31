@@ -33,13 +33,19 @@ class Stock extends CI_Controller
         $id_stock = $this->uri->segment(3);
         $id_item = $this->uri->segment(4);
         $qty = $this->stock_m->getId($id_stock)->row()->qty;
+        $stk = $this->item_m->getIdDel($id_item)->row()->stock;
         $data = ['qty' => $qty, 'id_item' => $id_item];
-
-        $this->item_m->update_stock_out($data);
-        $this->stock_m->del($id_stock);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+        if ($qty > $stk) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+        Stock Gagal diHapus, Karena Stok Barang Lebih Terlalu Kecil, Tolong Cek Jumlah Stok Barang</div>');
+            redirect('stock/index');
+        } else {
+            $this->item_m->update_stock_out($data);
+            $this->stock_m->del($id_stock);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         Stock berhasil diHapus</div>');
-        redirect('stock/index');
+            redirect('stock/index');
+        }
     }
 
     public function excel()
@@ -99,7 +105,7 @@ class Stock extends CI_Controller
         $pdf->SetFont('', 'B', 14);
         $pdf->Cell(277, 10, "LAPORAN STOK MASUK", 0, 1, 'C');
         $pdf->SetAutoPageBreak(true, 0);
- 
+
         // Add Header
         $pdf->Ln(10);
         $pdf->SetFont('', 'B', 12);
@@ -109,26 +115,26 @@ class Stock extends CI_Controller
         $pdf->Cell(20, 8, "Qty", 1, 0, 'C');
         $pdf->Cell(70, 8, "Detail", 1, 0, 'C');
         $pdf->Cell(37, 8, "Date", 1, 1, 'C');
-        
- 
+
+
         $pdf->SetFont('', '', 12);
         $data['stock'] = $this->stock_m->get()->result();
         $data['item'] = $this->item_m->get()->result();
         $data['supplier'] = $this->supplier_m->get()->result();
-        $no=0;
-        foreach ($data['stock'] as $lapData){
+        $no = 0;
+        foreach ($data['stock'] as $lapData) {
             $no++;
-            $pdf->Cell(20,8,$no,1,0, 'C');
-            $pdf->Cell(20,8,$lapData->barcode,1,0);
-            $pdf->Cell(50,8,$lapData->item_name,1,0);
-            $pdf->Cell(20,8,$lapData->qty,1,0);
-            $pdf->Cell(70,8,$lapData->detail,1,0);
-            $pdf->Cell(37,8,$lapData->date,1,1);
+            $pdf->Cell(20, 8, $no, 1, 0, 'C');
+            $pdf->Cell(20, 8, $lapData->barcode, 1, 0);
+            $pdf->Cell(50, 8, $lapData->item_name, 1, 0);
+            $pdf->Cell(20, 8, $lapData->qty, 1, 0);
+            $pdf->Cell(70, 8, $lapData->detail, 1, 0);
+            $pdf->Cell(37, 8, $lapData->date, 1, 1);
         }
- 
+
         $pdf->SetFont('', 'B', 10);
         $pdf->Cell(277, 10, "Laporan Stok Masuk CV. AMProduction", 0, 1, 'L');
- 
-        $pdf->Output('Laporan-Stok-Masuk.pdf'); 
+
+        $pdf->Output('Laporan-Stok-Masuk.pdf');
     }
 }

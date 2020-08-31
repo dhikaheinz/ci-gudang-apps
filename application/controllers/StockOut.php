@@ -23,9 +23,9 @@ class StockOut extends CI_Controller
 
         $outStok = $this->input->post('stock');
         $outQty = $this->input->post('qty');
-        if ($outStok <= $outQty) {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Stock_Out Gagal ditambah, Karena Stok Tidak Cukup</div>');
+        if ($outStok < $outQty) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+                Stock Out Gagal ditambah, Karena STOK Pada Barang Tidak Cukup</div>');
             redirect('stockOut/index');
         } else {
             $this->item_m->update_stock_out($post);
@@ -46,7 +46,7 @@ class StockOut extends CI_Controller
         $this->item_m->update_stock_in($data);
         $this->stock_m->del($id_stock);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-        Stock Out berhasil diHapus</div>');
+        Stock Out berhasil diHapus, Jumlah Stok Barang Di Telah Kembalikan!</div>');
         redirect('stockOut/index');
     }
 
@@ -125,7 +125,7 @@ class StockOut extends CI_Controller
             $no++;
             $pdf->Cell(20, 8, $no, 1, 0, 'C');
             $pdf->Cell(20, 8, $lapData->barcode, 1, 0);
-            $pdf->Cell(50, 8, $lapData->item_name, 1, 0);
+            $pdf->Cell(70, 8, $lapData->item_name, 1, 0);
             $pdf->Cell(20, 8, $lapData->qty, 1, 0);
             $pdf->Cell(70, 8, $lapData->detail, 1, 0);
             $pdf->Cell(37, 8, $lapData->date, 1, 1);

@@ -56,7 +56,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <span class="brand-text font-weight-light ml-3"><b>BANDAR OBLONG</b></span>
+                <div class="text-center"><img src="<?= base_url('assets/dist/img/logo-bandaroblong.png') ?>" class="rounded" alt="User Image" height="80px" /></div>
             </a>
 
             <!-- Sidebar -->
@@ -157,7 +157,12 @@
                                 <p>LogOut</p>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="https://www.bandaroblong.com" class="nav-link">
+                                <i class="fab fa-chrome nav-icon"></i>
+                                <p> BANDAROBLONG.COM</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -177,7 +182,7 @@
                 <a href="#">AM Production</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.0.5
+                <b>Version</b> 1.0 -- Adhika And Hanang
             </div>
         </footer>
 
