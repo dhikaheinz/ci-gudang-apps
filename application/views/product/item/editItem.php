@@ -82,6 +82,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Bahan</label>
+                                    <select name="bahan" id="bahan" class="form-control">
+                                        <option value="">Select bahan</option>
+                                        <?php foreach ($query_bahan->result() as $v) : ?>
+                                            <option value="<?= $v->id_bahan ?>" <?= $v->id_bahan == $edit_item->bahan ? "selected" : null ?>><?= $v->nm_bahan ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1">Size</label>
                                     <select name="size" id="size" class="form-control">
                                         <option value="">Select Size</option>

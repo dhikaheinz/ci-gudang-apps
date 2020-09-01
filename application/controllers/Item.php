@@ -6,16 +6,17 @@ class Item extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model(['item_m', 'category_m', 'color_m']);
+        $this->load->model(['item_m', 'category_m', 'color_m', 'bahan_m']);
     }
 
 
     public function index()
     {
         $data['title'] = 'item';
-        $data['row']  = $this->item_m->get();
+        $data['row2']  = $this->item_m->get();
         $data['category'] = $this->category_m->get();
         $data['color'] = $this->color_m->get();
+        $data['bahan'] = $this->bahan_m->get();
 
 
         $this->template->load('templates/index', 'product/item/index', $data);
@@ -30,6 +31,7 @@ class Item extends CI_Controller
                 'name' => $this->input->post('name'),
                 'category' => $this->input->post('category'),
                 'color' => $this->input->post('color'),
+                'bahan' => $this->input->post('bahan'),
                 'size' => $this->input->post('size'),
                 'price' => $this->input->post('price')
             ]
@@ -45,6 +47,7 @@ class Item extends CI_Controller
         $data['edit_item'] = $query->row();
         $data['query_category'] = $this->category_m->get();
         $data['query_color'] = $this->color_m->get();
+        $data['query_bahan'] = $this->bahan_m->get();
 
         $this->form_validation->set_rules('name', 'Name', 'required');
 
@@ -87,8 +90,11 @@ class Item extends CI_Controller
         $object->getActiveSheet()->setCellValue('B1', 'Barcode');
         $object->getActiveSheet()->setCellValue('C1', 'Product Name');
         $object->getActiveSheet()->setCellValue('D1', 'Category');
-        $object->getActiveSheet()->setCellValue('E1', 'Harga');
-        $object->getActiveSheet()->setCellValue('F1', 'Stock');
+        $object->getActiveSheet()->setCellValue('E1', 'Color');
+        $object->getActiveSheet()->setCellValue('F1', 'Bahan');
+        $object->getActiveSheet()->setCellValue('G1', 'Size');
+        $object->getActiveSheet()->setCellValue('H1', 'Harga');
+        $object->getActiveSheet()->setCellValue('I1', 'Stock');
 
         $baris = 2;
         $no = 1;
@@ -98,8 +104,11 @@ class Item extends CI_Controller
             $object->getActiveSheet()->setCellValue('B' . $baris, $oItem->barcode);
             $object->getActiveSheet()->setCellValue('C' . $baris, $oItem->name);
             $object->getActiveSheet()->setCellValue('D' . $baris, $oItem->category_name);
-            $object->getActiveSheet()->setCellValue('E' . $baris, $oItem->price);
-            $object->getActiveSheet()->setCellValue('F' . $baris, $oItem->stock);
+            $object->getActiveSheet()->setCellValue('E' . $baris, $oItem->color_name);
+            $object->getActiveSheet()->setCellValue('F' . $baris, $oItem->bahan_nama);
+            $object->getActiveSheet()->setCellValue('G' . $baris, $oItem->size);
+            $object->getActiveSheet()->setCellValue('H' . $baris, $oItem->price);
+            $object->getActiveSheet()->setCellValue('I' . $baris, $oItem->stock);
 
             $baris++;
         }
@@ -128,14 +137,15 @@ class Item extends CI_Controller
         // Add Header
         $pdf->Ln(10);
         $pdf->SetFont('', 'B', 12);
-        $pdf->Cell(20, 8, "No", 1, 0, 'C');
+        $pdf->Cell(10, 8, "No", 1, 0, 'C');
         $pdf->Cell(20, 8, "Barcode", 1, 0, 'C');
-        $pdf->Cell(70, 8, "Product Name", 1, 0, 'C');
-        $pdf->Cell(70, 8, "Category", 1, 0, 'C');
-        $pdf->Cell(40, 8, "Harga", 1, 0, 'C');
-        $pdf->Cell(37, 8, "Stock", 1, 1, 'C');
-
-
+        $pdf->Cell(40, 8, "Product Name", 1, 0, 'C');
+        $pdf->Cell(40, 8, "Category", 1, 0, 'C');
+        $pdf->Cell(40, 8, "Warna", 1, 0, 'C');
+        $pdf->Cell(37, 8, "Bahan", 1, 0, 'C');
+        $pdf->Cell(20, 8, "Ukuran", 1, 0, 'C');
+        $pdf->Cell(37, 8, "Harga", 1, 0, 'C');
+        $pdf->Cell(20, 8, "Stock", 1, 1, 'C');
 
         $pdf->SetFont('', '', 12);
         $data['row']  = $this->item_m->get()->result();
@@ -143,17 +153,20 @@ class Item extends CI_Controller
         $no = 0;
         foreach ($data['row'] as $lapItem) {
             $no++;
-            $pdf->Cell(20, 8, $no, 1, 0, 'C');
+            $pdf->Cell(10, 8, $no, 1, 0, 'C');
             $pdf->Cell(20, 8, $lapItem->barcode, 1, 0);
-            $pdf->Cell(70, 8, $lapItem->name, 1, 0);
-            $pdf->Cell(70, 8, $lapItem->category_name, 1, 0);
-            $pdf->Cell(40, 8, $lapItem->price, 1, 0);
-            $pdf->Cell(37, 8, $lapItem->stock, 1, 1);
+            $pdf->Cell(40, 8, $lapItem->name, 1, 0);
+            $pdf->Cell(40, 8, $lapItem->category_name, 1, 0);
+            $pdf->Cell(40, 8, $lapItem->color_name, 1, 0);
+            $pdf->Cell(37, 8, $lapItem->bahan_nama, 1, 0);
+            $pdf->Cell(20, 8, $lapItem->size, 1, 0);
+            $pdf->Cell(37, 8, $lapItem->price, 1, 0);
+            $pdf->Cell(20, 8, $lapItem->stock, 1, 1);
         }
 
         $pdf->SetFont('', 'B', 10);
         $pdf->Cell(277, 10, "Laporan Daftar Item Masuk CV. AMProduction", 0, 1, 'L');
 
-        $pdf->Output('Laporan-Stok-Masuk.pdf');
+        $pdf->Output('Laporan-Daftar-Item.pdf');
     }
 }

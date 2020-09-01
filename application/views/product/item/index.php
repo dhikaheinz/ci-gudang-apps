@@ -68,6 +68,7 @@
                                           <th scope="col">Product Name</th>
                                           <th scope="col">Category</th>
                                           <th scope="col">Color</th>
+                                          <th scope="col">Bahan</th>
                                           <th scope="col">Size</th>
                                           <th scope="col">Harga</th>
                                           <th scope="col">Stock</th>
@@ -76,13 +77,14 @@
                                   </thead>
                                   <tbody>
                                       <?php $j = 1; ?>
-                                      <?php foreach ($row->result() as $key => $i) : ?>
+                                      <?php foreach ($row2->result() as $key => $i) : ?>
                                           <tr>
                                               <th scope="row"><?= $j++; ?></th>
                                               <td><?= $i->barcode ?></td>
                                               <td><?= $i->name ?></td>
                                               <td><?= $i->category_name ?></td>
                                               <td><?= $i->color_name ?></td>
+                                              <td><?= $i->bahan_nama ?></td>
                                               <td><?= $i->size ?></td>
                                               <td><?= $i->price ?></td>
                                               <td><?= $i->stock ?></td>
@@ -120,7 +122,7 @@
               <form action="<?= base_url('item/tambah'); ?>" method="POST">
                   <div class="modal-body">
                       <div class="form-group">
-                          <input type="text" class="form-control" id="barcoe" name="barcode" placeholder="Barcode" required>
+                          <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Barcode" required>
                       </div>
 
                       <div class="form-group">
@@ -141,6 +143,15 @@
                               <option value="">Select Color</option>
                               <?php foreach ($color->result() as $z) : ?>
                                   <option value="<?= $z->id_color ?>"><?= $z->color ?></option>
+                              <?php endforeach; ?>
+                          </select>
+                      </div>
+
+                      <div class="form-group">
+                          <select name="bahan" class="form-control">
+                              <option value="">Select Bahan</option>
+                              <?php foreach ($bahan->result() as $v) : ?>
+                                  <option value="<?= $v->id_bahan ?>"><?= $v->nm_bahan ?></option>
                               <?php endforeach; ?>
                           </select>
                       </div>

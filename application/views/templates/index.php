@@ -119,6 +119,12 @@
                                         <p>Color</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a <?= $this->uri->segment(1) == 'bahan' ? 'class="nav-link active"' : '' ?>href="<?= base_url('bahan') ?>" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Bahan</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li <?= $this->uri->segment(1) == 'stock' || $this->uri->segment(1) == 'stockOut' ? 'class="nav-item has-treeview active menu-open"' : '' ?>class="nav-item has-treeview">
